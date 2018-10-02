@@ -1,4 +1,4 @@
-# GerrymanderingWebTool
+# Gerrymandering Web Tool
 Project #1
 
 Members: 
