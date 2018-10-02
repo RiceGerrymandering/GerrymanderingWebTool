@@ -14,4 +14,6 @@ Relevant Research Documents:
 * Computationally drawing districts
 * PySAL http://pysal.org/
 * GDAL http://gdal.org/
-* Charlie's compact district drawing paper https://www.brennancenter.org/sites/default/files/legal-work/Chen_Rodden_Through_the_Thicket_2015.pdf;
+* Charlie's compact district drawing paper https://www.brennancenter.org/sites/default/files/legal-work/Chen_Rodden_Through_the_Thicket_2015.pdf
+* Quantifying Gerrymandering in North Carolina https://arxiv.org/pdf/1801.03783.pdf
+* Harvard Dataverse files https://projects.iq.harvard.edu/eda/data
