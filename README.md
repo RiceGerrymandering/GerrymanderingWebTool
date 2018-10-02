@@ -18,5 +18,5 @@ Relevant Research Documents:
 * Quantifying Gerrymandering in North Carolina https://arxiv.org/pdf/1801.03783.pdf
 * Harvard Dataverse files https://projects.iq.harvard.edu/eda/data
 * Harvard paper from slides https://imai.fas.harvard.edu/research/files/redist.pdf
- * Corresponding slides https://imai.fas.harvard.edu/talk/files/Chicago16.pdf
+  * Corresponding slides https://imai.fas.harvard.edu/talk/files/Chicago16.pdf
 * Duke quantifying gerrymandering in texas https://services.math.duke.edu/~sb337/gerrymandering/TX.html
