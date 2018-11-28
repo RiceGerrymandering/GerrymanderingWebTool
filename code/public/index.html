@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/../src/index.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
     <!--
@@ -25,7 +26,44 @@
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
+    <div id="header">
+      <p>
+        <code>Welcome to Gerrymand-inator 2018. Gerrymander to your heart's desires..</code>
+      </p>
+    </div>
+     <code>Toggle the Competitiveness, Compactness, and Fairness below.</code>
+        <div className="Toggle-Boxes">
+          <code>Competitiveness: </code>
+          <select className="competitiveness">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+          <code> Compactness: </code>
+          <select className="compactness">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+          <code> Fairness: </code>
+          <select className="fairness">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+          <button>Re-district</button>
+        </div>
     <div id="root"></div>
+    <div id="stats">
+      <code>District results after re-districting: </code>
+      
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
