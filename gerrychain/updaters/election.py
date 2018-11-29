@@ -26,6 +26,21 @@ def population_score(partition):
     return math.sqrt(sum((pop / partition["ideal_population"] - 1) ** 2 for pop in partition["population"].values()))
 
 
+def efficiency_gap(partition):
+    wasted_republican = 0
+    wasted_democratic = 0
+    for race in partition["2014_House"].races:
+        if partition["2014_House"].count("Republican", race) > partition["2014_House"].count("Democratic", race):
+            wasted_republican += partition["2014_House"].count("Republican", race) - 0.5 * partition[
+                "2014_House"].totals[race]
+            wasted_democratic += partition["2014_House"].count("Democratic", race)
+        else:
+            wasted_republican += partition["2014_House"].count("Republican", race)
+            wasted_democratic += partition["2014_House"].count("Democratic", race) - 0.5 * partition[
+                "2014_House"].totals[race]
+    return (wasted_republican - wasted_democratic) / partition["2014_House"].total_votes()
+
+
 class Election:
     """Represents the data of one election, with races conducted in each part of
     the partition.
