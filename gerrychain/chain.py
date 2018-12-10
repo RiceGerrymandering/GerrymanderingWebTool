@@ -43,7 +43,7 @@ class MarkovChain:
         self.accept = accept
         self.total_steps = total_steps
         self.state = initial_state
-        self.num_accepted = 1
+        self.num_valid = 1
 
     def __iter__(self):
         self.counter = 0
@@ -58,6 +58,7 @@ class MarkovChain:
             proposal = self.proposal(self.state)
 
             if not proposal:
+                print("Proposal failed!!!")
                 if self.accept(self.state):
                     self.counter += 1
                     return self.state
@@ -69,11 +70,11 @@ class MarkovChain:
             self.state.parent = None
 
             if self.is_valid(proposed_next_state):
+                self.num_valid += 1
                 proposed_next_state.accepted = self.accept(proposed_next_state)
-                self.counter += 1
                 if proposed_next_state.accepted:
+                    self.counter += 1
                     self.state = proposed_next_state
-                    self.num_accepted += 1
                 # Yield the proposed state, even if not accepted
                 # return proposed_next_state
                 return self.state

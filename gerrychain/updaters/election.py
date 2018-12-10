@@ -4,9 +4,7 @@ from gerrychain.updaters.tally import DataTally
 
 
 def fairness_score(partition):
-    return math.sqrt(sum((partition["2014_House"].seats(party) / len(partition) -
-                          partition["2014_House"].percent(party)) ** 2
-                         for party in partition["2014_House"].election.parties))
+    return partition["2014_House"].seats("Democratic") / len(partition) - partition["2014_House"].percent("Democratic")
 
 
 def competitiveness_score(partition):
