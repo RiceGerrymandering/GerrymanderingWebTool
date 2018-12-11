@@ -1,16 +1,17 @@
 import math
 
 from gerrychain.updaters.tally import DataTally
+import gerrychain.scores
 
 
 def fairness_score(partition):
-    return partition["2014_House"].seats("Democratic") / len(partition) - partition["2014_House"].percent("Democratic")
+    return partition["Election"].seats("Democratic") / len(partition) - partition["Election"].percent("Democratic")
 
 
 def competitiveness_score(partition):
-    return 1 - sum(abs(partition["2014_House"].percent("Democratic", race) - 0.5)
-                   for race in partition["2014_House"].races) / len(partition) * 4 / 3 *\
-           (1 + abs(partition["2014_House"].seats("Democratic") / len(partition.parts) - 0.5))
+    return 1 - sum(abs(partition["Election"].percent("Democratic", race) - 0.5)
+                   for race in partition["Election"].races) / len(partition) * 4 / 3 *\
+           (1 + abs(partition["Election"].seats("Democratic") / len(partition.parts) - 0.5))
 
 
 def ideal_population(partition):
@@ -24,19 +25,23 @@ def population_score(partition):
     return math.sqrt(sum((pop / partition["ideal_population"] - 1) ** 2 for pop in partition["population"].values()))
 
 
+# def efficiency_gap(partition):
+#     wasted_republican = 0
+#     wasted_democratic = 0
+#     for race in partition["Election"].races:
+#         if partition["Election"].count("Republican", race) > partition["Election"].count("Democratic", race):
+#             wasted_republican += partition["Election"].count("Republican", race) - 0.5 * partition[
+#                 "Election"].totals[race]
+#             wasted_democratic += partition["Election"].count("Democratic", race)
+#         else:
+#             wasted_republican += partition["Election"].count("Republican", race)
+#             wasted_democratic += partition["Election"].count("Democratic", race) - 0.5 * partition[
+#                 "Election"].totals[race]
+#     return (wasted_republican - wasted_democratic) / partition["Election"].total_votes()
+
+
 def efficiency_gap(partition):
-    wasted_republican = 0
-    wasted_democratic = 0
-    for race in partition["2014_House"].races:
-        if partition["2014_House"].count("Republican", race) > partition["2014_House"].count("Democratic", race):
-            wasted_republican += partition["2014_House"].count("Republican", race) - 0.5 * partition[
-                "2014_House"].totals[race]
-            wasted_democratic += partition["2014_House"].count("Democratic", race)
-        else:
-            wasted_republican += partition["2014_House"].count("Republican", race)
-            wasted_democratic += partition["2014_House"].count("Democratic", race) - 0.5 * partition[
-                "2014_House"].totals[race]
-    return (wasted_republican - wasted_democratic) / partition["2014_House"].total_votes()
+    return gerrychain.scores.efficiency_gap(partition["Election"])
 
 
 class Election:
@@ -244,6 +249,9 @@ class ElectionResults:
 
     def counts(self, party):
         return tuple(self.totals_for_party[party][race] for race in self.races)
+
+    def counts_labeled(self, party):
+        return {race: self.totals_for_party[party][race] for race in self.races}
 
     def won(self, party, race):
         """
