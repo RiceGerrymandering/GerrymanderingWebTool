@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import map from './political_map_image.png';
 import './App.css';
 import axios from 'axios'
 
@@ -14,8 +13,12 @@ class App extends Component {
   }
 
   handle_click() {
-    //console.log("Success!")
-    axios.get('http://localhost:3001/test?one="1"&two="1"&three="2"')
+    var competitiveness = document.getElementById("competitiveness").value;
+    var compactness = document.getElementById("compactness").value;
+    var fairness = document.getElementById("fairness").value;
+    var url = 'http://localhost:3001/test?competitiveness="' + competitiveness + '"&compactness="' + compactness + '"&fairness="' + fairness + '"'
+    console.log(url)
+    axios.get(url)
       .then(response => this.setState({image: response.data}))
   }
 
@@ -25,6 +28,32 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
         </header>
+        <div className="Toggle-Boxes">
+          <code>Competitiveness: </code>
+          <select id="competitiveness">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+          <code> Compactness: </code>
+          <select id="compactness">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+          <code> Fairness: </code>
+          <select id="fairness">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
         <button className='button' onClick={this.handle_click}>Re-district</button>
         <div>
           <img src={src}/>
