@@ -50,7 +50,7 @@ def initial_map(state):
     df.plot(column=state_info[state]["cd"], legend=True)
     matplotlib.pyplot.axis("off")
     matplotlib.pyplot.savefig("./initial_map.png", bbox_inches="tight")
-    matplotlib.pyplot.show()
+    # matplotlib.pyplot.show()
 
     # Returning the constraint indices is unnecessary
     selected_map.pop("fi")
