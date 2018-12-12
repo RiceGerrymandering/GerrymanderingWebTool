@@ -188,3 +188,15 @@ def pre_filter(state):
 
 #pre_filter(sys.argv[1])
 fast_select(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+
+
+#open binary file in read mode and encode
+image = open('new_map.png', 'rb') 
+image_read = image.read() 
+image_64_encode = base64.b64encode(image_read)
+string = "data:image/png;base64," + image_64_encode
+
+#Write base64 encoding
+f = open("out.txt", "w")
+f.write(string)
+print("Done!")

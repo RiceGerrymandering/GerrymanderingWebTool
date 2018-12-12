@@ -31,7 +31,14 @@ function test(req, res) {
       
     // E.g : http://localhost:3000/name?firstname=Mike&lastname=Will 
     // so, first name = Mike and last name = Will 
-    var process = spawn('python',["./test.py", 
+    // var process = spawn('python',["test.py", 
+    //                         req.query.state,
+    //                         req.query.competitiveness, 
+    //                         req.query.compactness,
+    //                         req.query.fairness] ); 
+
+     var process = spawn('python',["rice/select_map.py", 
+                            req.query.state,
                             req.query.competitiveness, 
                             req.query.compactness,
                             req.query.fairness] ); 
