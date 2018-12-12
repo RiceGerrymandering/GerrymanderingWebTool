@@ -16,10 +16,9 @@ class App extends Component {
     var competitiveness = parseInt(document.getElementById("competitiveness").value);
     var compactness = parseInt(document.getElementById("compactness").value);
     var fairness = parseInt(document.getElementById("fairness").value);
-    var state = document.getElementById("state").value;
-    //var url = 'http://localhost:3001/test?competitiveness="' + competitiveness + '"&compactness="' + compactness + '"&fairness="' + fairness + "&state=" + state + ""
-    //var url = 'https://test-gerry.herokuapp.com/test?competitiveness="' + competitiveness + '"&compactness="' + compactness + '"&fairness="' + fairness + "&state=" + state + ""
-    var url = 'http://localhost:3001/test?competitiveness=' + competitiveness + '&compactness=' + compactness + '&fairness=' + fairness + '&state="' + state + '"'
+    var stateVal = document.getElementById("state").value;
+    var url = 'https://test-gerry.herokuapp.com/test?competitiveness=' + competitiveness + '&compactness=' + compactness + '&fairness=' + fairness + '&state="' + stateVal + '"'
+    //var url = 'http://localhost:3001/test?competitiveness=' + competitiveness + '&compactness=' + compactness + '&fairness=' + fairness + '&state="' + state + '"'
     console.log(url)
     axios.get(url)
       .then(response => this.setState({image: response.data}))
