@@ -1,21 +1,30 @@
 {
-  "name": "Rice GerryMander",
-  "version": "1.0.0",
-  "description": "Rice GerryMander Tool.",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
+  "name": "node-js-getting-started",
+  "version": "0.3.0",
+  "description": "A sample Node.js app using Express 4",
   "engines": {
     "node": "10.x"
   },
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"  
+  },
   "dependencies": {
     "ejs": "^2.5.6",
-    "express": "^4.15.2",
-    "fs": {
-      "version": "0.0.1-security",
-      "resolved": "https://registry.npmjs.org/fs/-/fs-0.0.1-security.tgz",
-      "integrity": "sha1-invTcYa23d84E/I4WLV+yq9eQdQ="
-    }
-  }
+    "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "request": "^2.81.0",
+    "tape": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroku/node-js-getting-started"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
 }
