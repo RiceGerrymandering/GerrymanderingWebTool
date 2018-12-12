@@ -52,7 +52,7 @@ def initial_map(state):
     df.plot(column=state_info[state]["cd"], legend=True)
     matplotlib.pyplot.axis("off")
     matplotlib.pyplot.savefig("./initial_map.png", bbox_inches="tight")
-    matplotlib.pyplot.show()
+    # matplotlib.pyplot.show()
 
     # Returning the constraint indices is unnecessary
     selected_map.pop("fi")
@@ -61,6 +61,7 @@ def initial_map(state):
 
     # Return the map stats
     return selected_map
+
 
 # Use fast_select() instead, after calling pre_filter().
 def select(state, fairness, competitiveness, compactness):
@@ -98,7 +99,7 @@ def select(state, fairness, competitiveness, compactness):
     df.plot(column=state_info[state]["cd"], legend=True)
     matplotlib.pyplot.axis("off")
     matplotlib.pyplot.savefig("./new_map.png", bbox_inches="tight")
-    matplotlib.pyplot.show()
+    # matplotlib.pyplot.show()
     return {"num_maps": len(map_pool), "map": selected_map}
 
 
@@ -106,20 +107,25 @@ def select(state, fairness, competitiveness, compactness):
 # given constraints (on 1-5 scales). This is the fast version, where the filtering is done beforehand to create files
 # of the form mapsXYZ.json in the folder for that state in this directory.
 # The map is saved as new_map.png in this directory.
-# Returns a dictionary with keys "f", "c1", "c2", "fp", "c1p", "c2p", "d", "r", and "e", which respectively map to
+# Returns a dictionary with key "num_maps" mapping to the number of maps meeting the constraints, and key "map" mapping
+# to a dictionary with keys "f", "c1", "c2", "fp", "c1p", "c2p", "d", "r", and "e", which respectively map to
 # the fairness score, competitiveness score, compactness score, fairness percentile, competitiveness percentile,
 # compactness percentile, Democratic election results (in the form of a dictionary where the keys are the district
 # labels and the values are the number of Democratic votes in that district race), Republican election results (in the
 # same form as the Democratic ones), and efficiency gap of that district map.
 # WARNING: This requires pre_filter() to have been called already.
 def fast_select(state, fairness, competitiveness, compactness):
+    # Open the file containing the maps meeting those constraints for that state
     with open("./" + state + "/maps" + str(fairness) + str(competitiveness) + str(compactness) + ".json") as f:
         map_pool = json.load(f)
+    # If no maps meet the constraints:
     if not map_pool:
         return {"num_maps": 0, "map": None}
+    # Randomly choose a map to show
     selected_map = random.choice(map_pool)
     shapefile_name = ("./vtd-adjacency-graphs-master/vtd-adjacency-graphs/" + state_info[state]["code"] +
                       "/shapefile/tl_2012_" + state_info[state]["code"] + "_vtd10.shp")
+    # Apply the district assignments in the map to the shapefile for the state
     driver = ogr.GetDriverByName('ESRI Shapefile')
     data_source = driver.Open(shapefile_name, 1)
     layer = data_source.GetLayer()
@@ -129,12 +135,14 @@ def fast_select(state, fairness, competitiveness, compactness):
         layer.SetFeature(feat)
         index += 1
     data_source = None
+    # Returning the district assignments is unnecessary
     selected_map.pop("a")
+    # Save the map as a .png file
     df = geopandas.read_file(shapefile_name)
     df.plot(column=state_info[state]["cd"], legend=True)
     matplotlib.pyplot.axis("off")
     matplotlib.pyplot.savefig("./new_map.png", bbox_inches="tight")
-    matplotlib.pyplot.show()
+    # matplotlib.pyplot.show()
     return {"num_maps": len(map_pool), "map": selected_map}
 
 
