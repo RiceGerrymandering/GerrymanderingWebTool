@@ -198,7 +198,7 @@ os.chdir("rice")
 image = open('new_map.png', 'rb') 
 image_read = image.read() 
 image_64_encode = base64.b64encode(image_read)
-string = "data:image/png;base64," + str(image_64_encode)
+string = "data:image/png;base64," + image_64_encode.decode("utf-8") 
 
 # #Write base64 encoding
 f = open("out.txt", "w")
