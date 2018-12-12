@@ -18,18 +18,18 @@ app.get('/test', test);
 function test(req, res) { 
     console.log("Got Request!")
 
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.send("test");
+    // res.header('Access-Control-Allow-Origin', '*');
+    // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    // res.send("test");
     // Use child_process.spawn method from  
     // child_process module and assign it 
     // to variable spawn 
-    // var spawn = require("child_process").spawn; 
+    var spawn = require("child_process").spawn; 
       
-    // // Parameters passed in spawn - 
-    // // 1. type_of_script 
-    // // 2. list containing Path of the script 
-    // //    and arguments for the script  
+    // Parameters passed in spawn - 
+    // 1. type_of_script 
+    // 2. list containing Path of the script 
+    //    and arguments for the script  
       
     // // E.g : http://localhost:3000/name?firstname=Mike&lastname=Will 
     // // so, first name = Mike and last name = Will 
@@ -39,33 +39,23 @@ function test(req, res) {
     // //                         req.query.compactness,
     // //                         req.query.fairness] ); 
 
-    // var proc = spawn('python',["./rice/select_map.py", 
-    //                         req.query.state,
-    //                         req.query.competitiveness, 
-    //                         req.query.compactness,
-    //                         req.query.fairness] ); 
-    // //console.log(proc)
-    // proc.stdout.pipe(proc.stdout);
+    var proc = spawn('python',["./rice/select_map.py", 
+                            req.query.state,
+                            req.query.competitiveness, 
+                            req.query.compactness,
+                            req.query.fairness] ); 
+    //console.log(proc)
+    proc.stdout.pipe(proc.stdout);
   
     // // Takes stdout data from script which executed 
     // // with arguments and send this data to res object 
-    // proc.stdout.on('data', function(data) { 
-    //     console.log(data)
-    //     fs.readFile('rice/out.txt', 'utf8', function(err, contents) {
-    //         res.header('Access-Control-Allow-Origin', '*');
-    //         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    //         res.send(contents.toString());
-    //     });
-    //     //res.send(data.toString()); 
-    // } ) 
-
-    // proc.stdout.on('data', function(data) { 
-    //     console.log(data)
-    //     fs.readFile('out.txt', 'utf8', function(err, contents) {
-    //         res.header('Access-Control-Allow-Origin', '*');
-    //         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    //         res.send(contents.toString());
-    //     });
-    //     //res.send(data.toString()); 
-    // } ) 
+    proc.stdout.on('data', function(data) { 
+        console.log(data)
+        fs.readFile('rice/out.txt', 'utf8', function(err, contents) {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+            res.send(contents.toString());
+        });
+        //res.send(data.toString()); 
+    } ) 
 } 
