@@ -20,7 +20,6 @@ scipy==1.1.0
 geopandas==0.4.0
 gerrychain==0.2.2
 pyproj==1.9.5.1
-gdal==2.3.1
 
 
 
