@@ -188,19 +188,29 @@ import os
 #                 print("done with constraints " + str(fairness) + str(competitiveness) + str(compactness) +
 #                       ", num maps: " + str(len(map_pool)))
 
+
+
 os.chdir("rice")
 
+path = sys.argv[1] + "/" + "map" + sys.argv[2] + sys.argv[3] + sys.argv[4] + ".png"
+
+#print(path)
 #pre_filter(sys.argv[1])
 
 #print(fast_select(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]))
 
 #open binary file in read mode and encode
-image = open('new_map.png', 'rb') 
-image_read = image.read() 
-image_64_encode = base64.b64encode(image_read)
-string = "data:image/png;base64," + image_64_encode.decode("utf-8") 
+try:
+    image = open(path, 'rb') 
+    image_read = image.read() 
+    image_64_encode = base64.b64encode(image_read)
+    string = "data:image/png;base64," + image_64_encode.decode("utf-8") 
 
-# #Write base64 encoding
-f = open("out.txt", "w")
-f.write(string)
-print(sys.argv)
+    # #Write base64 encoding
+    f = open("out.txt", "w")
+    f.write(string)
+    print(sys.argv)
+except IOError:
+    f = open("out.txt", "w")
+    f.write("No Map!")
+    print("Error!")
