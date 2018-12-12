@@ -18,6 +18,7 @@ class App extends Component {
     var fairness = document.getElementById("fairness").value;
     var state = document.getElementById("state").value;
     var url = 'http://localhost:3001/test?competitiveness="' + competitiveness + '"&compactness="' + compactness + '"&fairness="' + fairness + "&state=" + state + ""
+    //var url = 'https://test-gerry.herokuapp.com/test?competitiveness="' + competitiveness + '"&compactness="' + compactness + '"&fairness="' + fairness + "&state=" + state + ""
     console.log(url)
     axios.get(url)
       .then(response => this.setState({image: response.data}))
