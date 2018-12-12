@@ -18,7 +18,6 @@ python-dateutil==2.7.5
 pytz==2018.7
 Shapely==1.6.4.post2
 six==1.12.0
-subprocess32==3.2.7
 scipy==1.1.0
 geopandas==0.4.0
 gerrychain==0.2.2
