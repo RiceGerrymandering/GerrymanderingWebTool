@@ -22,7 +22,6 @@ subprocess32==3.2.7
 scipy==1.1.0
 geopandas==0.4.0
 gerrychain==0.2.2
-matplotlib==2.1.2
 pyproj==1.9.5.1
 
 
