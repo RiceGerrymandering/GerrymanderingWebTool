@@ -7,7 +7,7 @@ var fs = require('fs');
   
 // Creates a server which runs on port 3000 and  
 // can be accessed through localhost:3000 
-app.listen(3001, function() { 
+app.listen(process.env.PORT || 30001, function() { 
     console.log('server running on port 3001'); 
 } ) 
   
@@ -47,7 +47,7 @@ function test(req, res) {
     // with arguments and send this data to res object 
     process.stdout.on('data', function(data) { 
         console.log(data)
-        fs.readFile('out.txt', 'utf8', function(err, contents) {
+        fs.readFile('rice/out.txt', 'utf8', function(err, contents) {
             res.header('Access-Control-Allow-Origin', '*');
             res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
             res.send(contents.toString());
