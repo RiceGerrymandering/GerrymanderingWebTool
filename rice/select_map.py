@@ -118,7 +118,9 @@ import os
 # def fast_select(state, fairness, competitiveness, compactness):
 #     # Open the file containing the maps meeting those constraints for that state
 #     with open("./" + state + "/maps" + str(fairness) + str(competitiveness) + str(compactness) + ".json") as f:
+#         #print(f)
 #         map_pool = json.load(f)
+#         #print(map_pool)
 #     # If no maps meet the constraints:
 #     if not map_pool:
 #         return {"num_maps": 0, "map": None}
@@ -186,11 +188,12 @@ import os
 #                 print("done with constraints " + str(fairness) + str(competitiveness) + str(compactness) +
 #                       ", num maps: " + str(len(map_pool)))
 
-
-# #pre_filter(sys.argv[1])
-# fast_select(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
-
 os.chdir("rice")
+
+#pre_filter(sys.argv[1])
+
+#print(fast_select(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]))
+
 #open binary file in read mode and encode
 image = open('new_map.png', 'rb') 
 image_read = image.read() 
@@ -200,4 +203,4 @@ string = "data:image/png;base64," + str(image_64_encode)
 # #Write base64 encoding
 f = open("out.txt", "w")
 f.write(string)
-print("Done!")
+print(sys.argv)

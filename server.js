@@ -31,31 +31,31 @@ function test(req, res) {
     // 2. list containing Path of the script 
     //    and arguments for the script  
       
-    // // E.g : http://localhost:3000/name?firstname=Mike&lastname=Will 
-    // // so, first name = Mike and last name = Will 
-    // // var proc = spawn('python',["test.py", 
-    // //                         req.query.state,
-    // //                         req.query.competitiveness, 
-    // //                         req.query.compactness,
-    // //                         req.query.fairness] ); 
+    // E.g : http://localhost:3000/name?firstname=Mike&lastname=Will 
+    // so, first name = Mike and last name = Will 
+    // var proc = spawn('python',["test.py", 
+    //                         req.query.state,
+    //                         req.query.competitiveness, 
+    //                         req.query.compactness,
+    //                         req.query.fairness] ); 
 
     var proc = spawn('python',["./rice/select_map.py", 
                             req.query.state,
                             req.query.competitiveness, 
                             req.query.compactness,
                             req.query.fairness] ); 
+    console.log("Spawned Python!")
     //console.log(proc)
     proc.stdout.pipe(proc.stdout);
   
-    // // Takes stdout data from script which executed 
-    // // with arguments and send this data to res object 
+    // Takes stdout data from script which executed 
+    // with arguments and send this data to res object 
     proc.stdout.on('data', function(data) { 
-        console.log(data)
+        console.log(data.toString())
         fs.readFile('rice/out.txt', 'utf8', function(err, contents) {
             res.header('Access-Control-Allow-Origin', '*');
             res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
             res.send(contents.toString());
         });
-        //res.send(data.toString()); 
     } ) 
 } 
