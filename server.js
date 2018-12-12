@@ -46,7 +46,7 @@ function test(req, res) {
                             req.query.fairness] ); 
     console.log("Spawned Python!")
     //console.log(proc)
-    proc.stdout.pipe(proc.stdout);
+    //proc.stdout.pipe(proc.stdout);
   
     // Takes stdout data from script which executed 
     // with arguments and send this data to res object 
