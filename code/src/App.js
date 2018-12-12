@@ -13,11 +13,11 @@ class App extends Component {
   }
 
   handle_click() {
-    var competitiveness = document.getElementById("competitiveness").value;
-    var compactness = document.getElementById("compactness").value;
-    var fairness = document.getElementById("fairness").value;
+    var competitiveness = parseInt(document.getElementById("competitiveness").value);
+    var compactness = parseInt(document.getElementById("compactness").value);
+    var fairness = parseInt(document.getElementById("fairness").value);
     var state = document.getElementById("state").value;
-    var url = 'http://localhost:3001/test?competitiveness="' + competitiveness + '"&compactness="' + compactness + '"&fairness="' + fairness + "&state=" + state + ""
+    var url = 'http://localhost:3001/test?competitiveness=' + competitiveness + '&compactness=' + compactness + '&fairness=' + fairness + '&state="' + state + '"'
     console.log(url)
     axios.get(url)
       .then(response => this.setState({image: response.data}))
