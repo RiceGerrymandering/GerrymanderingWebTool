@@ -16,7 +16,8 @@ class App extends Component {
     var competitiveness = document.getElementById("competitiveness").value;
     var compactness = document.getElementById("compactness").value;
     var fairness = document.getElementById("fairness").value;
-    var url = 'http://localhost:3001/test?' + 'state="NH"&' + 'competitiveness="' + competitiveness + '"&compactness="' + compactness + '"&fairness="' + fairness + '"'
+    var state = document.getElementById("state").value;
+    var url = 'http://localhost:3001/test?competitiveness="' + competitiveness + '"&compactness="' + compactness + '"&fairness="' + fairness + "&state=" + state + ""
     console.log(url)
     axios.get(url)
       .then(response => this.setState({image: response.data}))
@@ -52,6 +53,11 @@ class App extends Component {
             <option>3</option>
             <option>4</option>
             <option>5</option>
+          </select>
+          <code> State: </code>
+          <select id="state">
+            <option>NH</option>
+            <option>TX</option>
           </select>
         </div>
         <button className='button' onClick={this.handle_click}>Re-district</button>
