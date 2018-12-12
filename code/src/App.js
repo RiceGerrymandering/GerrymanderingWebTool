@@ -16,7 +16,7 @@ class App extends Component {
     var competitiveness = document.getElementById("competitiveness").value;
     var compactness = document.getElementById("compactness").value;
     var fairness = document.getElementById("fairness").value;
-    var url = 'http://localhost:3001/test?competitiveness="' + competitiveness + '"&compactness="' + compactness + '"&fairness="' + fairness + '"'
+    var url = 'http://localhost:3001/test?' + 'state="NH"&' + 'competitiveness="' + competitiveness + '"&compactness="' + compactness + '"&fairness="' + fairness + '"'
     console.log(url)
     axios.get(url)
       .then(response => this.setState({image: response.data}))
