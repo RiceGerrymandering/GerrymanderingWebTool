@@ -4,6 +4,8 @@ import json
 import matplotlib.pyplot
 import random
 from osgeo import ogr
+import sys 
+import base64
 
 
 # Dictionary storing, for each supported state, its FIPS code and a label indicating the district assignment being used
@@ -176,5 +178,5 @@ def pre_filter(state):
                       ", num maps: " + str(len(map_pool)))
 
 
-# pre_filter("NH")
-print(initial_map("NH"))
+#pre_filter(sys.argv[1])
+fast_select(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
