@@ -41,9 +41,9 @@ function test(req, res) {
     // Takes stdout data from script which executed 
     // with arguments and send this data to res object 
     proc.on('exit', function (code, signal) { 
-        //console.log(signal.toString())
+        console.log("Process Exited!")
         fs.readFile('rice/out.txt', 'utf8', function(err, contents) {
-            console.log(contents.toString())
+            console.log("Reading File!")
             res.header('Access-Control-Allow-Origin', '*');
             res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
             res.send(contents.toString());
