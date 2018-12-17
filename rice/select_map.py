@@ -1,6 +1,6 @@
 # import copy
 # import geopandas
-# import json
+import json
 # import matplotlib.pyplot as plt
 # import random
 # from osgeo import ogr
@@ -285,6 +285,11 @@ district_abbreviations_reversed = {
 os.chdir("rice")
 
 path = sys.argv[1] + "/" + "map" + sys.argv[2] + sys.argv[3] + sys.argv[4] + ".png"
+statsPath = sys.argv[1] + "/stats.json"
+
+statFile = open(statsPath, 'rb')
+stats = json.loads(statFile.read())
+#print(stats)
 
 # print(path)
 # pre_filter(sys.argv[1])
@@ -298,9 +303,14 @@ try:
     image_64_encode = base64.b64encode(image_read)
     string = "data:image/png;base64," + image_64_encode.decode("utf-8")
 
+    data = {
+        "stats" : stats,
+        "img" : string
+    }
+
     # #Write base64 encoding
     f = open("out.txt", "w")
-    f.write(string)
+    f.write(json.dumps(data))
     print(sys.argv)
 except IOError:
     f = open("out.txt", "w")
