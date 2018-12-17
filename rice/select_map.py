@@ -283,18 +283,11 @@ district_abbreviations_reversed = {
 
 
 os.chdir("rice")
-
 path = sys.argv[1] + "/" + "map" + sys.argv[2] + sys.argv[3] + sys.argv[4] + ".png"
 statsPath = sys.argv[1] + "/stats.json"
 
 statFile = open(statsPath, 'rb')
 stats = json.loads(statFile.read())
-#print(stats)
-
-# print(path)
-# pre_filter(sys.argv[1])
-
-# print(fast_select(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]))
 
 # open binary file in read mode and encode
 try:
