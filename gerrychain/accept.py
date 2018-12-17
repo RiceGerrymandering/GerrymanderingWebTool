@@ -27,6 +27,7 @@ def always_accept(partition):
     return True
 
 
+# Metropolis-Hastings criterion using the Gibbs distribution with a beta weight and score_function.
 def metropolis_hastings_constrained(beta, score_function):
     def accept_function(partition):
         prob = min(float(1), len(partition.parent["cut_edges"]) / len(partition["cut_edges"]) *
@@ -35,6 +36,7 @@ def metropolis_hastings_constrained(beta, score_function):
     return accept_function
 
 
+# Basic Metropolis-Hastings criterion for single flips.
 def metropolis_hastings():
     def score_function(_partition):
         return 0

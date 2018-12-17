@@ -4,16 +4,20 @@ from gerrychain.updaters.tally import DataTally
 import gerrychain.scores
 
 
+# Compute the fairness score of the input map (in favor of Democrats).
 def fairness_score(partition):
     return partition["Election"].seats("Democratic") / len(partition) - partition["Election"].percent("Democratic")
 
 
+# Compute the competitiveness score of the input map.
 def competitiveness_score(partition):
     return 1 - sum(abs(partition["Election"].percent("Democratic", race) - 0.5)
                    for race in partition["Election"].races) / len(partition) * 4 / 3 *\
            (1 + abs(partition["Election"].seats("Democratic") / len(partition.parts) - 0.5))
 
 
+# Compute the ideal population of a district in the state corresponding to the input map, based on total population
+# and number of districts.
 def ideal_population(partition):
     if partition.parent is not None:
         return partition.parent["ideal_population"]
@@ -21,25 +25,12 @@ def ideal_population(partition):
         return sum(partition["population"].values()) / len(partition)
 
 
+# Compute the population score of the input map, representing closeness to population parity.
 def population_score(partition):
     return math.sqrt(sum((pop / partition["ideal_population"] - 1) ** 2 for pop in partition["population"].values()))
 
 
-# def efficiency_gap(partition):
-#     wasted_republican = 0
-#     wasted_democratic = 0
-#     for race in partition["Election"].races:
-#         if partition["Election"].count("Republican", race) > partition["Election"].count("Democratic", race):
-#             wasted_republican += partition["Election"].count("Republican", race) - 0.5 * partition[
-#                 "Election"].totals[race]
-#             wasted_democratic += partition["Election"].count("Democratic", race)
-#         else:
-#             wasted_republican += partition["Election"].count("Republican", race)
-#             wasted_democratic += partition["Election"].count("Democratic", race) - 0.5 * partition[
-#                 "Election"].totals[race]
-#     return (wasted_republican - wasted_democratic) / partition["Election"].total_votes()
-
-
+# Compute the efficiency gap of the input map (in favor of Democrats).
 def efficiency_gap(partition):
     return gerrychain.scores.efficiency_gap(partition["Election"])
 
