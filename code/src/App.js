@@ -10,6 +10,7 @@ class App extends Component {
       image: ''
     }
     this.handle_click = this.handle_click.bind(this)
+    this.found = ''
   }
 
     post_stats(map) {
@@ -100,13 +101,19 @@ class App extends Component {
     var compactness = parseInt(document.getElementById("compactness").value);
     var fairness = parseInt(document.getElementById("fairness").value);
     var stateVal = document.getElementById("state").value;
-    var url = 'https://test-gerry.herokuapp.com/test?competitiveness=' + competitiveness + '&compactness=' + compactness + '&fairness=' + fairness + '&state="' + stateVal + '"'
-    //var url = 'http://localhost:3001/test?competitiveness=' + competitiveness + '&compactness=' + compactness + '&fairness=' + fairness + '&state="' + state + '"'
+    var url = 'https://test-gerry.herokuapp.com/test?competitiveness=' + competitiveness + '&compactness=' + compactness + '&fairness=' + fairness + '&state=' + stateVal
+    //var url = 'http://localhost:3001/test?competitiveness=' + competitiveness + '&compactness=' + compactness + '&fairness=' + fairness + '&state=' + stateVal
     console.log(url)
     axios.get(url)
-      .then(response => this.setState({image: response.data}))
-    // axios.get(url)
-    //   .then(response => this.post_stats(response.data.map))
+      .then(response => this.setState({image: response.data})).then(value => {
+        //console.log(this.state.image)
+        console.log(this.state.image.localeCompare('No Map!'))
+        // if (this.state.image.localeCompare('No Map!') == 0) {
+        //   this.found = 'No Map Found!'
+        // } else {
+        //   this.found = ''
+        // }
+      })
   }
 
   render() {
@@ -149,6 +156,7 @@ class App extends Component {
         <button className='button' onClick={this.handle_click}>Re-district</button>
         <div>
           <img src={src}/>
+          {this.found}
         </div>
         <div className="stats">
           <div><code>District results after re-districting: </code></div>

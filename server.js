@@ -1,4 +1,3 @@
-
 // import express JS module into app 
 // and creates its variable. 
 var express = require('express'); 
@@ -11,16 +10,12 @@ app.listen(process.env.PORT || 3001, function() {
     console.log('server running on port 3001'); 
 } ) 
   
-// Function callName() is executed whenever  
-// url is of the form localhost:3000/name 
+// url is of the form localhost:3000/test 
 app.get('/test', test); 
   
 function test(req, res) { 
     console.log("Got Request!")
 
-    // res.header('Access-Control-Allow-Origin', '*');
-    // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    // res.send("test");
     // Use child_process.spawn method from  
     // child_process module and assign it 
     // to variable spawn 
@@ -33,9 +28,9 @@ function test(req, res) {
 
     var proc = spawn('python',["./rice/select_map.py", 
                             req.query.state,
-                            req.query.competitiveness, 
-                            req.query.compactness,
-                            req.query.fairness] ); 
+                            req.query.fairness, 
+                            req.query.competitiveness,
+                            req.query.compactness] ); 
     console.log("Spawned Python!")
   
     // Takes stdout data from script which executed 
