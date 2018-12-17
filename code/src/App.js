@@ -7,14 +7,18 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      image: ''
+      image: '',
+      found: '',
+      stats: true
     }
     this.handle_click = this.handle_click.bind(this)
-    this.found = ''
   }
 
     post_stats(map) {
       var stats = document.getElementsByClassName("stats")[0];
+      while (stats.firstChild) {
+        stats.removeChild(stats.firstChild);
+      } 
 
       var line_br = document.createElement("br");
       line_br.innerHTML = "</br>"
@@ -101,23 +105,29 @@ class App extends Component {
     var compactness = parseInt(document.getElementById("compactness").value);
     var fairness = parseInt(document.getElementById("fairness").value);
     var stateVal = document.getElementById("state").value;
-    var url = 'https://test-gerry.herokuapp.com/test?competitiveness=' + competitiveness + '&compactness=' + compactness + '&fairness=' + fairness + '&state=' + stateVal
-    //var url = 'http://localhost:3001/test?competitiveness=' + competitiveness + '&compactness=' + compactness + '&fairness=' + fairness + '&state=' + stateVal
+    //var url = 'https://test-gerry.herokuapp.com/test?competitiveness=' + competitiveness + '&compactness=' + compactness + '&fairness=' + fairness + '&state=' + stateVal
+    var url = 'http://localhost:3001/test?competitiveness=' + competitiveness + '&compactness=' + compactness + '&fairness=' + fairness + '&state=' + stateVal
     console.log(url)
     axios.get(url)
-      .then(response => this.setState({image: response.data})).then(value => {
-        //console.log(this.state.image)
+      .then(response => {
+        console.log(response.data == 'No Map!')
+        if (response.data != 'No Map!') {
+          var map = fairness * 100 + competitiveness * 10 + compactness
+          this.setState({image: '', found : '', stats : true})
+          this.post_stats(response.data.stats[map].map)
+          this.setState({image: response.data.img, found : '', stats : true})
+        } else {
+          this.setState({image: '', found : 'No map found for contraints!', stats : false})
+        }
         console.log(this.state.image.localeCompare('No Map!'))
-        // if (this.state.image.localeCompare('No Map!') == 0) {
-        //   this.found = 'No Map Found!'
-        // } else {
-        //   this.found = ''
-        // }
+        
       })
   }
 
   render() {
     var src = this.state.image
+    var found = this.state.found
+    var stats = this.state.stats
     return (
       <div className="App">
         <header className="App-header">
@@ -156,11 +166,9 @@ class App extends Component {
         <button className='button' onClick={this.handle_click}>Re-district</button>
         <div>
           <img src={src}/>
-          {this.found}
+          {found}
         </div>
-        <div className="stats">
-          <div><code>District results after re-districting: </code></div>
-        </div>
+        { stats ?  <div className="stats"><div><code>District results after re-districting: </code></div></div> : null }
       </div>
 
     );
