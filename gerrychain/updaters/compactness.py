@@ -17,10 +17,6 @@ def polsby_popper(partition):
             for part in partition.parts}
 
 
-def compactness_score(partition):
-    return sum(partition["polsby_popper"].values())
-
-
 def boundary_nodes(partition, alias='boundary_nodes'):
     if partition.parent:
         return partition.parent[alias]

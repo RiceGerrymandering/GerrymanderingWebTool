@@ -140,7 +140,7 @@ class SelfConfiguringLowerBound:
 class WithinPercentRangeOfBounds:
     def __init__(self, func, percent):
         self.func = func
-        self.percent = float(percent) / 100.
+        self.percent = float(percent) / 100.0
         self.lbound = None
         self.ubound = None
 

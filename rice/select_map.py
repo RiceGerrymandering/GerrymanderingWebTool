@@ -283,8 +283,13 @@ district_abbreviations_reversed = {
 
 
 os.chdir("rice")
-path = sys.argv[1] + "/" + "map" + sys.argv[2] + sys.argv[3] + sys.argv[4] + ".png"
-statsPath = sys.argv[1] + "/stats.json"
+if sys.argv[1] == "NH":
+    path = sys.argv[1] + "_final/map" + sys.argv[2] + sys.argv[3] + sys.argv[4] + ".png"
+else:
+    path = sys.argv[1] + "_final/newmap" + sys.argv[2] + sys.argv[3] + sys.argv[4] + ".png"
+path1 = sys.argv[1] + "_final/" + sys.argv[2] + sys.argv[3] + sys.argv[4] + "graph1.png"
+path2 = sys.argv[1] + "_final/" + sys.argv[2] + sys.argv[3] + sys.argv[4] + "graph2.png"
+statsPath = sys.argv[1] + "_final/stats_new.json"
 
 statFile = open(statsPath, 'rb')
 stats = json.loads(statFile.read())
@@ -296,9 +301,21 @@ try:
     image_64_encode = base64.b64encode(image_read)
     string = "data:image/png;base64," + image_64_encode.decode("utf-8")
 
+    image1 = open(path1, 'rb')
+    image_read1 = image1.read()
+    image1_64_encode = base64.b64encode(image_read1)
+    string1 = "data:image/png;base64," + image1_64_encode.decode("utf-8")
+
+    image2 = open(path2, 'rb')
+    image_read2 = image2.read()
+    image2_64_encode = base64.b64encode(image_read2)
+    string2 = "data:image/png;base64," + image2_64_encode.decode("utf-8")
+
     data = {
         "stats" : stats,
-        "img" : string
+        "img" : string,
+        "graph1" : string1,
+        "graph2" : string2
     }
 
     # #Write base64 encoding

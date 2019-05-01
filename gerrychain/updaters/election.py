@@ -1,38 +1,6 @@
 import math
 
 from gerrychain.updaters.tally import DataTally
-import gerrychain.scores
-
-
-# Compute the fairness score of the input map (in favor of Democrats).
-def fairness_score(partition):
-    return partition["Election"].seats("Democratic") / len(partition) - partition["Election"].percent("Democratic")
-
-
-# Compute the competitiveness score of the input map.
-def competitiveness_score(partition):
-    return 1 - sum(abs(partition["Election"].percent("Democratic", race) - 0.5)
-                   for race in partition["Election"].races) / len(partition) * 4 / 3 *\
-           (1 + abs(partition["Election"].seats("Democratic") / len(partition.parts) - 0.5))
-
-
-# Compute the ideal population of a district in the state corresponding to the input map, based on total population
-# and number of districts.
-def ideal_population(partition):
-    if partition.parent is not None:
-        return partition.parent["ideal_population"]
-    else:
-        return sum(partition["population"].values()) / len(partition)
-
-
-# Compute the population score of the input map, representing closeness to population parity.
-def population_score(partition):
-    return math.sqrt(sum((pop / partition["ideal_population"] - 1) ** 2 for pop in partition["population"].values()))
-
-
-# Compute the efficiency gap of the input map (in favor of Democrats).
-def efficiency_gap(partition):
-    return gerrychain.scores.efficiency_gap(partition["Election"])
 
 
 class Election:
@@ -215,7 +183,7 @@ class ElectionResults:
         """
         if race is not None:
             return self.percents_for_party[party][race]
-        return self.count(party) / sum(self.totals[race] for race in self.races)
+        return sum(self.votes(party)) / sum(self.totals[race] for race in self.races)
 
     def percents(self, party):
         """
@@ -239,10 +207,21 @@ class ElectionResults:
         return sum(self.totals_for_party[party][race] for race in self.races)
 
     def counts(self, party):
+        """
+        :param party: Party ID
+        :return: tuple of the total votes cast for ``party`` in each part of
+            the partition
+        """
         return tuple(self.totals_for_party[party][race] for race in self.races)
 
     def counts_labeled(self, party):
         return {race: self.totals_for_party[party][race] for race in self.races}
+
+    def votes(self, party):
+        """
+        An alias for :meth:`counts`.
+        """
+        return self.counts(party)
 
     def won(self, party, race):
         """
