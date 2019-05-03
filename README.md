@@ -2,7 +2,7 @@
 
 Members: Mitch Belmer, Robbie Foley, Andrew Hadad, and Rutvik Patel
 
-Web tool: https://rice-gerry.surge.sh
+Web tool: https://redist-tool.surge.sh
 
 The report is at "COMP 490 Report.pdf".
 
